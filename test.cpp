@@ -2,38 +2,30 @@
 #include <string>
 using namespace std;
 
-void printArray(int *array){
-    int arrLength = sizeof(array) / sizeof(array[0]);
-    std::cout << arrLength << endl;
+void selection_sort(int *array, int arrLength){
+    int minimum;
+    for(int i = 0; i < arrLength-1; i++){
+        minimum = i;
+        for(int j = i + 1; j < arrLength; j++){
+            if(array[j] < array[minimum]){
+                minimum = j;
+            }
+        }
+        int temp = array[i];
+        array[i] = array[minimum];
+        array[minimum] = temp;
+    }
 }
 
-// void binarySearch(int low, int high, int key, int array[]){
-//     // std::cout << low;
-//     // std::cout << high;
-//     // std::cout << key;
-    
-//     int arrLength = sizeof(array) / sizeof(array[0]);
-
-//     for(int i = 0; i < arrLength; i++){
-//         std::cout << array[i] << endl;
-//     }
-//     // while(low <= high){
-//     //     int mid = (low + high) / 2;
-//     //     if(array[mid] < key){
-//     //         low = mid + 1;
-//     //     } else if (array[mid] > key){
-//     //         high = mid - 1;
-//     //     } else {
-//     //         return mid;
-//     //     }
-//     // }
-//     // return -1;
-// }
-
 int main(){
-    int arrayNum[] = {1,2,3,4,5,7,8,9};
-    printArray(arrayNum);
-    // std::cout << binarySearch(0, 8, 8, arrayNum);
+    int arrayNum[] = {16, 6, 13, 20, 12, 2, 14, 4, 10, 11};
+    int arrLength = sizeof(arrayNum) / sizeof(arrayNum[0]);
+
+    selection_sort(arrayNum, arrLength);
+
+    for(int i = 0; i < arrLength; i++){
+        std::cout << arrayNum[i] << endl;
+    }
 
     return 0;
 }
