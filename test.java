@@ -1,21 +1,32 @@
 import java.util.*;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class test {
     public static void main(String[] args){
-        int nums[] = {1,1,2};
-        System.out.println(removeDuplicates(nums));
+        int prices[] = {7,1,5,3,6,4};
+        System.out.println(maxProfit(prices)); 
     }
 
-    public int removeDuplicates(int[] nums) {
-        int j = 1;
+// Remove duplicates
+
+    // public static int removeDuplicates(int[] nums) {
+    //     int i = 0;
         
-        for(int i = 0; i < nums.length; i++){
-            if(nums[i] != nums[j]){
-                j++;
-            }
-            i++;
-        }
-        return j;
+    //     for(int j = 1; j < nums.length; j++) {
+    //         if(nums[i] != nums[j]){
+    //             i++;
+    //             nums[i] = nums[j];
+    //         } 
+    //     }
+    //     return i + 1;
+    // }
+
+// Sell stock
+    public int maxProfit(int[] prices) {
+        int min = Collections.min(Arrays.asList(prices));
+        int max = Collections.max(Arrays.asList(prices));
+
+        return max - min;
     }
 }
