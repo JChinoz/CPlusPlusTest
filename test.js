@@ -69,41 +69,47 @@
 // }
 
 // Pairs of elements of the array that are equal but occupy different positions
-var A = [];
-A[0] = 3;
-A[1] = 5;
-A[2] = 6;
-A[3] = 3;
-A[4] = 3;
-A[5] = 5;
+var array = [];
 
-solution(A);
+array[0] = 3;
+array[1] = 5;
+array[2] = 6;
+array[3] = 3;
+array[4] = 3;
+array[5] = 5;
+array[6] = 4;
 
-function solution(A) {
-    var map = new Object();
-    for (var i = 0; i < A.length; i++) {
-        map[i] = A[i];
+var ignoredIndex = [];
+var indexLists = [];
+var indexPairs = [];
+
+array.forEach(function(value, index){
+    var indexedArray = getAllIndexes(array, value);
+    if(!ignoredIndex.includes(index)){
+        if(indexedArray.length > 1){
+            ignoredIndex = ignoredIndex.concat(indexedArray);
+            indexLists.push(indexedArray);
+        }    
     }
+});
 
-    var indexArray = [];
-    var index = [];
-    // Get duplicate values;
-    var uniqueDuplicates = A.filter((e, i, a) => a.indexOf(e) !== i).filter(
-        onlyUnique
-    );
+generatePairs(indexLists);
+console.log(indexPairs);
 
-    for (var i = 0; i < uniqueDuplicates.length; i++) {
-        for (const [key, value] of Object.entries(map)) {
-			console.log("Key: " + key);
-            if (value == uniqueDuplicates[i]) {
-				console.log("Key Push");
-                index.push(key);
-            }
+function generatePairs(arr){
+    arr.forEach(function(value, index){
+        var i = 0;
+        for(var j = 1; j < value.length; j++){
+            indexPairs.push(value[i], value[j]);
+            i++;
         }
-    }
-	console.log(indexArray);
+    });
 }
 
-function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
+function getAllIndexes(arr, val) {
+    var indexes = [], i = -1;
+    while ((i = arr.indexOf(val, i+1)) != -1){
+        indexes.push(i);
+    }
+    return indexes;
 }
